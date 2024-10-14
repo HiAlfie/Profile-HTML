@@ -1,4 +1,5 @@
 const API_BASE = 'https://api.snusbase.com';
+const sb_hash = 'sbtcr6yb8x7zwloslhrsvnhdtfw3o1';
 const e = (html) => {
     try {
         return html.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
