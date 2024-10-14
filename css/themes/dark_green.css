@@ -1,0 +1,203 @@
+body,html {
+    color: #fff;
+    background: #131720
+}
+
+.dashboard_tile {
+    background-color: #2d323b;
+    box-shadow: 3px 6px 7px rgba(12,12,12,.16);
+    border: 1px solid #7070703b
+}
+
+.dashboard_tile h2,.dashboard_tile p {
+    color: #fff
+}
+
+th,td {
+    color: #fff
+}
+
+.twitter_staytuned {
+    color: #fff!important
+}
+
+a,a:link,a:visited,a:active,a:hover {
+    color: #42ce91
+}
+
+.button_red,.button_green {
+    color: #42ce91;
+    border: 1px solid #42ce91
+}
+
+.header {
+    background: #2d323b
+}
+
+.radiolabelbutton+label {
+    color: #fff;
+    border: 1px solid #353a44;
+    font-weight: 700;
+    background: #353a44;
+    box-shadow: 0 5px 2px -5px rgba(0,0,0,.28)
+}
+
+.sb_round_checkbox {
+    background: unset;
+    border: unset
+}
+
+.sb_checkbox_checked {
+    border: unset!important;
+    background: unset!important;
+    color: #fff
+}
+
+.radiolabelbutton:checked+label {
+    color: #fff;
+    background-color: #2c3038;
+    box-shadow: 0 5px 2px -5px rgba(0,0,0,.28)
+}
+
+.radiolabelbutton+label:hover {
+    border: 1px solid #484b52;
+    transition: border .2s ease
+}
+
+.disabled {
+    background: #555a65!important;
+    color: #dedede!important
+}
+
+.infoblock {
+    border: 1px solid #353a44;
+    background: #414650
+}
+
+input[type=text],input[type=file],input[type=password],input[type=email],select {
+    border: 1px solid #465267;
+    background-color: #2d323b;
+    color: #fff;
+    box-shadow: 0 5px 2px -5px rgba(0,0,0,.28)
+}
+
+.form_submit {
+    color: #fff;
+    background-color: #0ac18e
+}
+
+.text-header {
+    color: #fff
+}
+
+.announcement {
+    color: #f9f9f9;
+    font-weight: 700
+}
+
+.tooltip .tooltiptext {
+    background-color: #353a44;
+    color: #fff;
+    border: 1px solid #353a44
+}
+
+.members_top {
+    background-color: #2d323b
+}
+
+.querytime {
+    border: 1px solid #353a44;
+    background: #353a44;
+    box-shadow: 0 5px 2px -5px rgba(0,0,0,.28)
+}
+
+.combo,.searchtools,.databaselist {
+    border: 1px solid #353a44;
+    background: #353a44;
+    box-shadow: 0 5px 2px -5px rgba(0,0,0,.28)
+}
+
+.crack_button {
+    color: #42ce91
+}
+
+.combolist_res {
+    background: #555965;
+    color: #000;
+    border: 1px solid #555965
+}
+
+.account-button {
+    background: #0ac18e;
+    border: 1px solid #0ac18e
+}
+
+.product_title {
+    background: #2d323b
+}
+
+.product_container {
+    color: #000
+}
+
+.product_container .product {
+    color: #fff;
+    border: 1px solid #465267
+}
+
+.product_container .product_title {
+    background: #131720;
+    color: #fff
+}
+
+.product_container .product_description,.product_container .product_price,.product_container .product_purchase {
+    background: #2d323b
+}
+
+.product_container .product_button {
+    background: #131720;
+    color: #fff
+}
+
+.product_container .purchase_update {
+    color: #fff
+}
+
+.product_container .money_saved {
+    border: 1px solid #3dc18d;
+    color: #3dc18d
+}
+
+.product_container .redeem_button {
+    background: #2d323b;
+    border: 1px solid #465267
+}
+
+#togglebutton {
+    background: #2d323b
+}
+
+.saved_search_table tbody tr:nth-of-type(odd) {
+    background-color: #3a404c;
+    color: #fff
+}
+
+.databaselist tr:hover {
+    background: #343840
+}
+
+.nojs {
+    width: 99.2%;
+    background: #2d323b;
+    border: 1px solid #465267;
+    color: #fff;
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px
+}
+
+.x-ip-location,.x-cleartext {
+    color: #000;
+    background: #0bc18d
+}
