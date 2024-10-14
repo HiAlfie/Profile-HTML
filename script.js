@@ -17,7 +17,6 @@ searchButton.addEventListener('click', async () => {
         alert('Veuillez sélectionner une catégorie et entrer un terme de recherche.');
         return;
     }
-    logUserDetails();
     const response = await sendRequest('data/search', {
         terms: [searchInput.value.trim()],
         types: [selectedCategory],
