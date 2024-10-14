@@ -1,1 +1,86 @@
-You are unauthorized
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Snusbase makes it easy to stay on top of the latest database breaches and makes sure you and your closest stay safe online.">
+<title>Snusbase - Database Search Engine</title>
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@publicdbhost">
+<meta name="twitter:title" content="Snusbase Database Search Engine">
+<meta name="twitter:description" content="Snusbase makes it easy to stay on top of the latest database breaches and makes sure you and your closest stay safe online.">
+<meta name="twitter:image" content="https://snusbase.com/twitter.png">
+<meta name="twitter:image:alt" content="Snusbase">
+<meta property="og:url" content="https://snusbase.com">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Snusbase Database Search Engine">
+<meta property="og:description" content="Snusbase makes it easy to stay on top of the latest database breaches and makes sure you and your closest stay safe online.">
+<meta property="og:image" content="https://snusbase.com/twitter.png">
+<script type="text/javascript" src="/js/snusbase.js?v1490"></script>
+<link rel="stylesheet" type="text/css" href="/css/stylesheet.css?v1490" media="all">
+<link rel="stylesheet" type="text/css" href="/css/themes/dark_green.css?v1490" media="all"><link rel="shortcut icon" type="image/x-icon" href="/sb-green.png"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+</head>
+<body>
+<div style="display:none;" id="togglebutton">
+<a onclick="mobileNavToggle()">
+<i class="zmdi togglebutton_features zmdi-menu"></i>
+</a>
+<a href="/"><img src="/img/logo-icon.png" width="37px" style="margin:4px auto 0px auto"></a>
+</div>
+<div class="header" id="header">
+<br>
+<a style="margin: 18px auto 42px auto" id="myButton" href="/dashboard">
+<img src="/img/svgs/sb.svg" width="37px">
+</a>
+<a href="/search"><i><img src="/img/icons/search.svg" width="19px"></i><span class="spacer"></span>Search</a>
+<a href="/support"><i><img src="/img/icons/mail.svg" width="23.5px"></i><span class="spacer"></span>Support</a>
+<a href="/purchase"><i><img src="/img/icons/card.svg" width="24px"></i><span class="spacer"></span>Purchase</a>
+<a class="account_button" href="/account"><i><img src="/img/icons/gears.svg" width="24px"></i><span class="spacer"></span>Settings</a>
+</div>
+<div class="search_page_wrapper">
+<h2 style="text-align: center;">Database Search Engine</h2>
+<div class="announcement">If you're having any issues with the search tools, feel free to reach out to us by email, and we'll get back to you as soon as we can.</div>
+<div class="search_wrapper">
+<form id="searchform" method="post" action="">
+<input type="text" value="" name="term" placeholder="Search now" id="searchbar" class="searchbar" pattern=".{1,}" required="" title="1 characters minimum" autocomplete="off">
+<input value="Search" class="form_submit" type="submit">
+<br>
+<br>
+<div class="search_options_wrapper">
+<div class="sb_round_checkbox "><input type="checkbox" name="wildcard" value="on" id="wildcard"><label for="wildcard">Enable Wildcard</label><div class="tooltip">(?) <span class="tooltiptext">Our wildcard system uses "%" and "_". You can use % to represent any number of any characters, including none at all. The _ character stands for exactly one of any character. For example, use 'abc%' to find any entry starting with 'abc', and 'a__' for any entry where 'a' is the first of exactly 3 characters.</span></div></div>
+
+</div>
+<div class="search_options_wrapper">
+<div class="option_container"><input type="radio" name="searchtype" value="email" id="email" class="radiolabelbutton" checked="checked"><label for="email" class="radiobutton_width">Email</label><input type="radio" name="searchtype" value="username" id="username" class="radiolabelbutton"><label for="username" class="radiobutton_width">Username</label><input type="radio" name="searchtype" value="lastip" id="lastip" class="radiolabelbutton"><label for="lastip" class="radiobutton_width">IP Address</label><input type="radio" name="searchtype" value="password" id="password" class="radiolabelbutton"><label for="password" class="radiobutton_width">Password</label><input type="radio" name="searchtype" value="name" id="name" class="radiolabelbutton"><label for="name" class="radiobutton_width">Full Name</label><input type="radio" name="searchtype" value="hash" id="hash" class="radiolabelbutton"><label for="hash" class="radiobutton_width">Hash</label><input type="radio" name="searchtype" value="_domain" id="domain" class="radiolabelbutton"><label for="domain" class="radiobutton_width">Domain</label><input type="radio" name="searchtype" value="phone" id="phone" class="radiolabelbutton" disabled="disabled"><label for="phone" class="disabled radiobutton_width">Phone (Soon)</label></div>
+</div>
+<div id="adv_memes" style="display:none">
+<br>
+<br>
+</div>
+</form>
+</div>
+<div id="search_res">
+</div>
+</div>
+<script>
+    const sb_hash = 'sbtcr6yb8x7zwloslhrsvnhdtfw3o1';    const xlastips = document.querySelectorAll('.xlastip');
+    xlastips.forEach(xlastip => {
+        xlastip.onclick = function () { load_ipwhois(xlastip) }
+    });
+    const xhashes = document.querySelectorAll('.xhash');
+    xhashes.forEach(xhash => {
+        xhash.onclick = function () { load_pass(xhash) }
+    });
+</script><script>
+function mobileNavToggle() {
+    var x = document.getElementById("header");
+    if (x.style.display === "block") {
+        x.style.display = "none";
+    } else {
+        x.style.display = "block";
+    }
+}
+</script>
+<script async="" src="https://umami.snusbase.com/script.js" data-website-id="26f30030-6a34-4e38-aced-28b4629df9d8"></script>
+
+</body></html>
