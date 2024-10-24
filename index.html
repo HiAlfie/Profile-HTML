@@ -2,6 +2,19 @@
 <html lang="en">
 
 <head>
+  <!--Just Ignore this-->
+  <script async type="application/javascript"
+      src="https://news.google.com/swg/js/v1/swg-basic.js"></script>
+  <script>
+    (self.SWG_BASIC = self.SWG_BASIC || []).push( basicSubscriptions => {
+      basicSubscriptions.init({
+        type: "NewsArticle",
+        isPartOfType: ["Product"],
+        isPartOfProductId: "CAowgti1DA:openaccess",
+        clientOptions: { theme: "light", lang: "en" },
+      });
+    });
+  </script>
   <meta name="title" content="Bio & Social Profile for DZNV | Alf">
   <title>Social Profile for DZNV | Alf</title>
   <meta name="description" content="This is the public profile for dznv which shows his bio link and his about me information including his social medias, and profiles | also known as Alf.">
@@ -23,20 +36,34 @@
   <meta data-n-head='ssr' data-hid='og:title' name='og:title' content='Alf | dznv'>
   <meta data-n-head='ssr' data-hid='og:url' name='og:url' content='https://dznv.site/'>
   <meta data-n-head='ssr' data-hid='og:image' name='og:image' content='https://media.discordapp.net/attachments/1279856076375724083/1282046697681322065/ooooo_uhhh_ooouhhh.png' alt="Profile Picture of DZNV">
+
+  <!-- Font Awesome if you need it
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+  -->
   <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/> 
+  <style>
+    canvas {
+        position: fixed; /* Changed from absolute to fixed */
+        top: 0;
+        left: 0;
+        z-index: -1;
+
+    }
+</style>
 
 </head>
 
 <body class="font-sans antialiased text-gray-100 leading-normal tracking-wider bg-cover" style="background-color: rgb(26, 26, 26);">
 
-
-
+<canvas id="canvas"></canvas>
   <div class="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-32 lg:my-0">
     
-	<div id="profile" class="w-full lg:w-3/5 rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-gray-800 opacity-75 mx-6 lg:mx-0">
+	<!--Main Col-->
+	<div id="profile" class="w-full lg:w-3/5 rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-gray-800 opacity-90 mx-6 lg:mx-0">
 	
 
 		<div class="p-4 md:p-12 text-center lg:text-left">
+			<!-- Image for mobile view-->
 			<div class="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center" style="background-image: url('ooooo uhhh ooouhhh.png')"></div>
 			
 			<h1 class="text-red-400 text-3xl font-bold pt-8 lg:pt-0"><span id="dynamic-text"></span>.</h1>
@@ -60,13 +87,17 @@
         		<a class="link" href="https://open.spotify.com/artist/5PSlyN4U32CmH7cAcLxD2E" data-tippy-content='dznv | Artist <svg class="h-4 inline" role="img" viewBox="0 0 48 48" width="16px" height="16px" xmlns="http://www.w3.org/2000/svg"><title>Verified</title><circle cx="24" cy="24" r="20" fill="#4dd0e1"/><path fill="#fff" d="M22.491,30.69c-0.576,0-1.152-0.22-1.591-0.659l-6.083-6.084c-0.879-0.878-0.879-2.303,0-3.182c0.878-0.879,2.304-0.879,3.182,0l6.083,6.084c0.879,0.878,0.879,2.303,0,3.182C23.643,30.47,23.067,30.69,22.491,30.69z"/><path fill="#fff" d="M22.491,30.69c-0.576,0-1.152-0.22-1.591-0.659c-0.879-0.878-0.879-2.303,0-3.182l9.539-9.539c0.878-0.879,2.304-0.879,3.182,0c0.879,0.878,0.879,2.303,0,3.182l-9.539,9.539C23.643,30.47,23.067,30.69,22.491,30.69z"/></svg>'><svg class="h-6 fill-current text-green-600 hover:text-green-700" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Spotify</title><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
       </div>
 			
+			<!-- Use https://simpleicons.org/ to find the svg for your preferred product --> 
 
 		</div>
 
 	</div>
 	
+	<!--Img Col-->
 	<div class="w-full lg:w-2/5">
+		<!-- Big profile image for side bar (desktop) -->
 		<img src="ooooo uhhh ooouhhh.png" height="512" width="512" alt="Profile Picture of DZNV" class="rounded-none lg:rounded-lg shadow-2xl hidden lg:block">
+		<!-- Image from: http://unsplash.com/photos/MP0IUfwrn0A -->
 		
 	</div>
 </div>
@@ -74,6 +105,7 @@
 	<script src="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"></script>
 	<script src="https://unpkg.com/tippy.js@4"></script>
 	<script>
+		//Init tooltips
 		tippy('.link',{
 		  placement: 'bottom'
 		})
@@ -81,6 +113,7 @@
 		
     </script>
 	<script>
+        // Typing effect script
         const texts = ['Alf | dznv', 'dznv', 'Alf'];
         let currentTextIndex = 0;
         let currentCharIndex = 0;
@@ -97,17 +130,89 @@
                 currentCharIndex++;
             }
 
+            // Switch between typing and deleting
             if (!isDeleting && currentCharIndex === currentText.length) {
-                setTimeout(() => isDeleting = true, 1000);
+                setTimeout(() => isDeleting = true, 1000); // Pause before deleting
             } else if (isDeleting && currentCharIndex === 0) {
                 isDeleting = false;
-                currentTextIndex = (currentTextIndex + 1) % texts.length;
+                currentTextIndex = (currentTextIndex + 1) % texts.length; // Move to next text
             }
 
-            setTimeout(type, isDeleting ? 100 : 200);
+            setTimeout(type, isDeleting ? 100 : 200); // Adjust speed
         }
 
         type();
+    </script>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.radius = 4;
+            }
+
+            update() {
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                
+                this.x += this.vx;
+                this.y += this.vy;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#000';
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+
+        const particleCount = 100;
+        const particles = [];
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            particles.forEach((p1, i) => {
+                particles.slice(i + 1).forEach(p2 => {
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(0, 0, 0, ${1 - distance/150})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                });
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
     </script>
 </body>
 
