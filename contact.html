@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Metadata -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Contact page offering business, personal, and fun email options. Toggle between light and dark themes.">
     <meta name="keywords" content="Contact, Business Email, Personal Email, Fun Email, Theme Toggle, Dark Mode, Light Mode">
     <meta name="author" content="Alf">
-    
-    <!-- Open Graph Meta Tags with Placeholder for URL -->
     <meta property="og:title" content="Contact Page">
     <meta property="og:description" content="Reach out via business, personal, or fun email. Try switching between light and dark themes!">
     <meta property="og:image" content="static/og-image.png">
     <meta property="og:url" content="" id="og-url">
     <meta name="twitter:card" content="summary_large_image">
-
-    <!-- Title -->
     <title>Email dznv - a contact page.</title>
-
-    <!-- Stylesheet -->
     <link rel="stylesheet" type="text/css" href="static/styles.css">
 </head>
 <body>
@@ -26,9 +19,9 @@
     <div class="container">
         <h1 id="dynamic-title">Contact <span id="dynamic-text"></span></h1>
         <div class="button-column">
-            <button class="pill-button" onclick="window.location.href = 'mailto:business@dznv.site'">📍Business Email</button>
-            <button class="pill-button" onclick="window.location.href = 'mailto:alf@dznv.site'">✔️ Personal Email</button>
-            <button class="pill-button" onclick="window.location.href = 'mailto:bored@dznv.site'">😃 Email if you're bored!</button>
+            <button class="pill-button">📍Business Email</button>
+            <button class="pill-button">✔️ Personal Email</button>
+            <button class="pill-button">😃 Email if you're bored!</button>
         </div>
     </div>
     <button class="theme-toggle">
@@ -36,18 +29,12 @@
         <span class="theme-text">Light Mode</span>
     </button>
 
-    <!-- Script for Dynamic URL Update -->
     <script>
-        // Detect the current domain
         const currentDomain = window.location.hostname;
-
-        // Update og:url meta tag dynamically
         const ogUrlTag = document.getElementById('og-url');
         if (ogUrlTag) {
             ogUrlTag.setAttribute('content', `https://${currentDomain}/contact`);
         }
-        
-        // You can update any other dynamic URL this way using JavaScript
     </script>
 
     <script src="static/script.js"></script>
