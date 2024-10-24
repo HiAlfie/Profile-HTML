@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="static\styles.css">
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="container">
+        <h1 id="dynamic-title">Contact <span id="dynamic-text"></span></h1>
+        <div class="button-column">
+            <button class="pill-button">📍Business Email</button>
+            <button class="pill-button">✔️ Personal Email</button>
+            <button class="pill-button">😃 Email if your bored email!</button>
+        </div>
+    </div>
+    <button class="theme-toggle">
+        <span class="theme-icon">🌞</span>
+        <span class="theme-text">Light Mode</span>
+    </button>
+    <script src="static\script.js"></script>
+</body>
+</html>
