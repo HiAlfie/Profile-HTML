@@ -6,7 +6,7 @@ const themeIcon = document.querySelector('.theme-icon');
 const themeText = document.querySelector('.theme-text');
 const dynamicText = document.getElementById('dynamic-text');
 
-// Function to handle dark/light mode toggle
+// change colour
 themeToggle.addEventListener('click', () => {
     container.classList.toggle('dark-mode');
     themeToggle.classList.toggle('dark');
@@ -19,7 +19,7 @@ themeToggle.addEventListener('click', () => {
         themeText.textContent = 'Light Mode';
     }
 });
-
+// this for the bouncy balls thing
 function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -89,7 +89,7 @@ function animate() {
 
 animate();
 
-// Typing effect script
+// type and delete thing
 const texts = ['for dznv.', 'for alf.', 'now.'];
 let currentTextIndex = 0;
 let currentCharIndex = 0;
@@ -105,38 +105,14 @@ function type() {
         currentCharIndex++;
     }
 
-    // Switch between typing and deleting
     if (!isDeleting && currentCharIndex === currentText.length) {
-        setTimeout(() => isDeleting = true, 1000); // Pause before deleting
+        setTimeout(() => isDeleting = true, 1000);
     } else if (isDeleting && currentCharIndex === 0) {
         isDeleting = false;
-        currentTextIndex = (currentTextIndex + 1) % texts.length; // Move to next text
+        currentTextIndex = (currentTextIndex + 1) % texts.length;
     }
 
-    setTimeout(type, isDeleting ? 100 : 200); // Adjust speed
+    setTimeout(type, isDeleting ? 100 : 200);
 }
 
 type();
-
-
-// Get all buttons
-const buttons = document.querySelectorAll('.pill-button');
-
-// Add click event listeners to each button
-buttons.forEach(button => {
-    button.addEventListener('click', () => {
-        let emailAddress;
-        
-        // Determine which email to use based on the button text
-        if (button.textContent.includes('Business')) {
-            emailAddress = 'business@dznv.site';
-        } else if (button.textContent.includes('Personal')) {
-            emailAddress = 'alf@dznv.site';
-        } else if (button.textContent.includes('bored')) {
-            emailAddress = 'bored@dznv.site';
-        }
-        
-        // Open default email client
-        window.location.href = `mailto:${emailAddress}`;
-    });
-});
