@@ -1,0 +1,142 @@
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const container = document.querySelector('.container');
+const themeToggle = document.querySelector('.theme-toggle');
+const themeIcon = document.querySelector('.theme-icon');
+const themeText = document.querySelector('.theme-text');
+const dynamicText = document.getElementById('dynamic-text');
+
+// Function to handle dark/light mode toggle
+themeToggle.addEventListener('click', () => {
+    container.classList.toggle('dark-mode');
+    themeToggle.classList.toggle('dark');
+    
+    if (container.classList.contains('dark-mode')) {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Dark Mode';
+    } else {
+        themeIcon.textContent = '🌞';
+        themeText.textContent = 'Light Mode';
+    }
+});
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 2;
+        this.vy = (Math.random() - 0.5) * 2;
+        this.radius = 4;
+    }
+
+    update() {
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+        
+        this.x += this.vx;
+        this.y += this.vy;
+    }
+
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = '#000';
+        ctx.fill();
+        ctx.closePath();
+    }
+}
+
+const particleCount = 50;
+const particles = [];
+for (let i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+    });
+
+    particles.forEach((p1, i) => {
+        particles.slice(i + 1).forEach(p2 => {
+            const dx = p1.x - p2.x;
+            const dy = p1.y - p2.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 150) {
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.strokeStyle = `rgba(0, 0, 0, ${1 - distance/150})`;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        });
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+// Typing effect script
+const texts = ['for dznv.', 'for alf.', 'now.'];
+let currentTextIndex = 0;
+let currentCharIndex = 0;
+let isDeleting = false;
+
+function type() {
+    const currentText = texts[currentTextIndex];
+    if (isDeleting) {
+        dynamicText.textContent = currentText.substring(0, currentCharIndex - 1);
+        currentCharIndex--;
+    } else {
+        dynamicText.textContent = currentText.substring(0, currentCharIndex + 1);
+        currentCharIndex++;
+    }
+
+    // Switch between typing and deleting
+    if (!isDeleting && currentCharIndex === currentText.length) {
+        setTimeout(() => isDeleting = true, 1000); // Pause before deleting
+    } else if (isDeleting && currentCharIndex === 0) {
+        isDeleting = false;
+        currentTextIndex = (currentTextIndex + 1) % texts.length; // Move to next text
+    }
+
+    setTimeout(type, isDeleting ? 100 : 200); // Adjust speed
+}
+
+type();
+
+
+// Get all buttons
+const buttons = document.querySelectorAll('.pill-button');
+
+// Add click event listeners to each button
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        let emailAddress;
+        
+        // Determine which email to use based on the button text
+        if (button.textContent.includes('Business')) {
+            emailAddress = 'business@dznv.site';
+        } else if (button.textContent.includes('Personal')) {
+            emailAddress = 'alf@dznv.site';
+        } else if (button.textContent.includes('bored')) {
+            emailAddress = 'bored@dznv.site';
+        }
+        
+        // Open default email client
+        window.location.href = `mailto:${emailAddress}`;
+    });
+});
