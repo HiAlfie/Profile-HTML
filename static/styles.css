@@ -1,0 +1,176 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(
+        135deg, 
+        #FF6B6B 0%,
+        #4ECDC4 20%,
+        #45B7D1 40%,
+        #96E6A1 60%,
+        #D4A5A5 80%,
+        #FFB6B9 100%
+    );
+    background-size: 400% 400%;
+    animation: gradient 30s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.container {
+    position: absolute;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.8);
+    width: 80%; /* Increased width for mobile */
+    max-width: 600px;
+    height: 60vh;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    display: flex; /* Added flex display */
+    flex-direction: column; /* Stack children vertically */
+    padding: 20px; /* Added padding */
+}
+
+.container h1 {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0; /* Reset margin */
+    padding: 20px 0; /* Add padding instead */
+    flex-shrink: 0; /* Prevent title from shrinking */
+}
+
+#dynamic-text {
+    font-weight: bold;
+    color: #FF6B6B; /* Choose any color that fits your design */
+}
+
+.container.dark-mode {
+    background: rgba(23, 23, 23, 0.9);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.container.dark-mode #dynamic-title {
+    color: #FFFFFF; /* Change to light color in dark mode */
+}
+
+.pill-button {
+    background-color: #4ECDC4;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-weight: bold;
+    font-size: clamp(14px, 3vw, 20px);
+    cursor: pointer;
+    width: min(80%, 300px);
+    transition: all 0.3s ease;
+    height: 100px; /* Fixed height */
+    min-height: 75px; /* Minimum height */
+    display: flex; /* Add flex display */
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+}
+
+/* For mobile devices */
+
+/* Media query for mobile devices */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 90%;
+        height: 80vh;
+        padding: 10px;
+    }
+
+    .pill-button {
+        height: 50px; /* Slightly smaller height on mobile */
+        width: 85%;
+    }
+
+    .container h1 {
+        font-size: clamp(20px, 5vw, 28px); /* Responsive title size */
+    }
+}
+
+/* Keep your existing hover and active states */
+.pill-button:hover {
+    background-color: #3DBDB4;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.pill-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.button-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center buttons vertically */
+    gap: 20px; /* Fixed gap between buttons */
+    flex-grow: 1; /* Take up remaining space */
+    padding: 20px 0; /* Add some padding */
+}
+.button-column .pill-button {
+    width: 80%; /* Button width as a percentage of the container's width */
+    height: 10%; /* Button height as a percentage of the container's height */
+}
+
+
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 3;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.theme-toggle.dark {
+    background: rgba(23, 23, 23, 0.9);
+    color: white;
+}
+
+.theme-icon {
+    font-size: 18px;
+}
