@@ -49,6 +49,45 @@
         z-index: -1;
 
     }
+    .theme-toggle {
+        position: fixed;
+        bottom: 5px;
+        left: 5px;
+        z-index: -13456789;
+        background: rgba(255, 255, 255, 0.75);
+        border: none;
+        padding: 5px 5px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        color: black;
+
+    }
+    .theme-toggle1 {
+        position: fixed;
+        bottom: 5px;
+        left: 125px;
+        z-index: -13456789;
+        background: rgba(255, 255, 255, 0.75);
+        border: none;
+        padding: 5px 5px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        color: black;
+    }
 </style>
 
 </head>
@@ -92,7 +131,12 @@
 		</div>
 
 	</div>
-	
+    <button class="theme-toggle"
+        onclick="window.location.href = '/tos'"> Terms Of Service
+    </button>
+    <button class="theme-toggle1"
+        onclick="window.location.href = '/privacy'">Privacy Policy
+    </button>
 	<!--Img Col-->
 	<div class="w-full lg:w-2/5">
 		<!-- Big profile image for side bar (desktop) -->
