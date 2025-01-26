@@ -1,0 +1,129 @@
+local rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+
+local correctkey = "thx4joiningdiscord"
+local discordinvite = "https://discord.gg/SHTEeysz"
+local iskeyvalid = false
+
+local configurationfilename = "KeyValidationStatus"
+local foldername = "DemonologyHelper"
+local keyfilepath = foldername .. "/" .. configurationfilename
+
+local function savekeyvalidationstatus(status)
+    if not isfolder(foldername) then
+        makefolder(foldername)
+    end
+    writefile(keyfilepath, tostring(status))
+end
+
+local function loadkeyvalidationstatus()
+    if isfile(keyfilepath) then
+        return readfile(keyfilepath) == "true"
+    end
+    return false
+end
+
+iskeyvalid = loadkeyvalidationstatus()
+
+local window = rayfield:createwindow({
+    name = "Demonology",
+    loadingtitle = "Demonology",
+    loadingsubtitle = "By dznv",
+    configurationsaving = {
+        enabled = true,
+        foldername = foldername,
+        filename = "Settings"
+    },
+    discord = {
+        enabled = true,
+        invite = "SHTEeysz",
+        rememberjoins = true
+    },
+    keysystem = false,
+})
+
+if not iskeyvalid then
+    local keytab = window:createtab("Key System", 4483362458)
+
+    keytab:createparagraph({
+        title = "Enter Key",
+        content = "You need to enter a valid key to access the main features. The key is available in the Discord server. Click the button below to copy the invite link."
+    })
+
+    keytab:createbutton({
+        name = "Copy Discord Link",
+        callback = function()
+            setclipboard(discordinvite)
+            rayfield:notify({
+                title = "Link Copied",
+                content = "The Discord invite link has been copied to your clipboard!",
+                duration = 5,
+            })
+        end,
+    })
+
+    keytab:createinput({
+        name = "Enter Key",
+        placeholdertext = "Enter the key here...",
+        removetextafterfocuslost = false,
+        callback = function(input)
+            if input == correctkey then
+                iskeyvalid = true
+                savekeyvalidationstatus(true)
+                rayfield:notify({
+                    title = "Access Granted",
+                    content = "Correct key entered! You can now access the main features.",
+                    duration = 5,
+                })
+            else
+                rayfield:notify({
+                    title = "Access Denied",
+                    content = "Incorrect key. Please try again.",
+                    duration = 5,
+                })
+            end
+        end,
+    })
+end
+
+local maintab = window:createtab("Main", 4483362458)
+
+maintab:createbutton({
+    name = "Get Ghost Type",
+    callback = function()
+        if not iskeyvalid then
+            rayfield:notify({
+                title = "Access Denied",
+                content = "Please enter the correct key in the Key System tab to use this feature.",
+                duration = 5,
+            })
+            return
+        end
+
+        local ghost = game.workspace:findfirstchild("Ghost")
+        if ghost then
+            local ghosttype = ghost:getattribute("GhostType")
+            if ghosttype then
+                rayfield:notify({
+                    title = "Ghost Type Found",
+                    content = "The Ghost Type is: " .. ghosttype,
+                    duration = 5,
+                    image = 4483362458
+                })
+            else
+                rayfield:notify({
+                    title = "Error",
+                    content = "GhostType attribute not found!",
+                    duration = 5,
+                })
+            end
+        else
+            rayfield:notify({
+                title = "Error",
+                content = "Ghost not found: Join a game!",
+                duration = 5,
+            })
+        end
+    end,
+})
+
+rayfield:loadconfiguration()
