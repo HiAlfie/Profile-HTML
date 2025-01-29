@@ -48,7 +48,7 @@ if game.PlaceId == 111130915266245 then
          numberValue = rebirthMapping[rebirthValue] or 0
          Rayfield:Notify({
             Title = "Rebirth Option Updated",
-            Content = "Selected rebirth index: " .. tostring(rebirthValue),
+            Content = "Selected rebirth index: " .. rebirthValue,
             Duration = 3,
             Image = 4483362458
          })
