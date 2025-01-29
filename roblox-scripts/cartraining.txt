@@ -1,6 +1,6 @@
 if game.PlaceId == 111130915266245 then
-   local a = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-   local b = a:CreateWindow({
+   local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+   local Window = Rayfield:CreateWindow({
       Name = "Symbiote Hub - Race Training v1",
       Icon = 0,
       LoadingTitle = "Symbiote Hub",
@@ -30,60 +30,80 @@ if game.PlaceId == 111130915266245 then
       }
    })
 
-   local c = false
-   local d = nil
+   local isRunning = false
+   local rebirthValue = nil
 
-   local e = b:CreateTab("Auto Farm", 4483362458)
+   local FarmTab = Window:CreateTab("Auto Farm", 4483362458)
 
-   e:CreateToggle({
-      Name = "Auto Race",
-      CurrentValue = false,
-      Flag = "AutoRaceToggle",
-      Callback = function(f)
-         c = f
-         if c then
-            while c do
-               game:GetService("ReplicatedStorage").Remotes["Join Race"]:FireServer()
-               wait(1)
-               game:GetService("ReplicatedStorage").Remotes["Set Stat"]:FireServer("Auto Race", true)
-               wait(1)
-               if not c then break end
-            end
-         else
-            game:GetService("ReplicatedStorage").Remotes["Set Stat"]:FireServer("Auto Race", false)
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Leave Race"):FireServer()
-            wait(1)
-            game:GetService("ReplicatedStorage").Remotes["TP"]:InvokeServer(1)
-         end
-      end
-   })
-
-   e:CreateDropdown({
+   -- Dropdown for selecting rebirth option
+   FarmTab:CreateDropdown({
       Name = "Rebirth Option",
       Options = { "1", "5", "20", "50", "100", "400", "1K", "5K", "25K", "75K", "200K", "500K", "2M", "25M", "100M", "1B", "50B", "500B", "50T" },
       CurrentOption = "1",
-      Callback = function(g)
-         d = tonumber(g)
+      Callback = function(selectedOption)
+         rebirthValue = tonumber(selectedOption) -- Assign selected rebirth value
+         Rayfield:Notify({
+            Title = "Rebirth Option Updated",
+            Content = "Selected rebirth value: " .. tostring(rebirthValue),
+            Duration = 3,
+            Image = 4483362458
+         })
       end
    })
 
-   local AutoRebirthToggle = e:CreateToggle({ -- 🔥 Ensure this is registered before loading config
+   -- Toggle for auto rebirth
+   FarmTab:CreateToggle({
       Name = "Auto Rebirth",
       CurrentValue = false,
       Flag = "AutoRebirthToggle",
-      Callback = function(h)
-         while h and d do
-            local args = { d }
+      Callback = function(isEnabled)
+         while isEnabled and rebirthValue do
+            local args = { rebirthValue }
+
+            Rayfield:Notify({
+               Title = "Rebirth Attempt",
+               Content = "Attempting to rebirth with value: " .. tostring(rebirthValue),
+               Duration = 3,
+               Image = 4483362458
+            })
+
             local success, result = pcall(function()
                return game:GetService("ReplicatedStorage").Remotes["Rebirth"]:InvokeServer(unpack(args))
             end)
-            if not success then warn("Failed to rebirth:", result) end
+
+            if success then
+               Rayfield:Notify({
+                  Title = "Rebirth Successful",
+                  Content = "Rebirthed successfully!",
+                  Duration = 3,
+                  Image = 4483362458
+               })
+            else
+               Rayfield:Notify({
+                  Title = "Rebirth Failed",
+                  Content = "Failed to rebirth: " .. tostring(result),
+                  Duration = 3,
+                  Image = 4483362458
+               })
+            end
+
             task.wait(1)
-            if not a.Flags["AutoRebirthToggle"].CurrentValue then break end
+
+            -- Break the loop if the toggle is disabled
+            if not Rayfield.Flags["AutoRebirthToggle"].CurrentValue then break end
+         end
+
+         if not rebirthValue then
+            Rayfield:Notify({
+               Title = "Rebirth Error",
+               Content = "Please select a rebirth option before enabling Auto Rebirth.",
+               Duration = 5,
+               Image = 4483362458
+            })
          end
       end
    })
 
-   task.wait(0.5) -- 🔥 Small delay to let everything register before loading config
-   a:LoadConfiguration() -- ✅ No more "AutoRebirthToggle not found" error
+   task.wait(0.5)
+   Rayfield:LoadConfiguration()
 end
