@@ -70,6 +70,7 @@ if game.PlaceId == 111130915266245 then
             end
          else
             game:GetService("ReplicatedStorage").Remotes["Set Stat"]:FireServer("Auto Race", false)
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Leave Race"):FireServer()
             wait(1)
             game:GetService("ReplicatedStorage").Remotes["TP"]:InvokeServer(1)
          end
@@ -139,13 +140,15 @@ if game.PlaceId == 111130915266245 then
       Flag = "AutoRebirthToggle",
       Callback = function(isEnabled)
          if numberValue == 0 then
-            Rayfield:Notify({
-               Title = "Rebirth Error",
-               Content = "Please select a valid rebirth option before enabling Auto Rebirth.",
-               Duration = 5,
-               Image = 4483362458
-            })
-            return
+            if isEnabled then
+               Rayfield:Notify({
+                  Title = "Rebirth Error",
+                  Content = "Please select a valid rebirth option before enabling Auto Rebirth.",
+                  Duration = 5,
+                  Image = 4483362458
+               })
+               return
+            end
          end
 
          while isEnabled do
