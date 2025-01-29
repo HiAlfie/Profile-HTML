@@ -61,6 +61,7 @@ if game.PlaceId == 111130915266245 then
       Callback = function(Value)
 				local running = false
 				if running == false then
+						running = true
             game:GetService("ReplicatedStorage").Remotes["Join Race"]:FireServer()
             wait(1)
             game:GetService("ReplicatedStorage").Remotes["Set Stat"]:FireServer("Auto Race", true)
