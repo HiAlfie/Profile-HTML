@@ -246,7 +246,8 @@ EggsTab:CreateToggle({
       end
 
       while isEnabled do
-         game:GetService("ReplicatedStorage").Remotes["Buy Egg"]:InvokeServer(selectedEgg, selectedAmount)
+         local args = { [1] = selectedEgg, [2] = selectedAmount }
+         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Buy Egg"):InvokeServer(unpack(args))
          task.wait(0.1)
          if not Rayfield.Flags["AutoOpenEggs"].CurrentValue then break end
       end
