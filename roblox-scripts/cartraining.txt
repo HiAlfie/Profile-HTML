@@ -169,10 +169,9 @@ if game.PlaceId == 111130915266245 then
       end
    })
    
---- This is the Auto Egg tab for Car Training
+-- this is place for egg opening in car trainingg my guy
 local EggsTab = Window:CreateTab("Eggs", 4483362458)
 
--- Description of Egg Categories
 EggsTab:CreateParagraph({
    Title = "Egg Categories",
    Content = "Blossom Egg & Golden Egg → Event Eggs\n" ..
@@ -186,32 +185,52 @@ EggsTab:CreateParagraph({
 
 local selectedEgg = nil
 local selectedAmount = nil
-local autoEggRun = false
-local function TweenToEgg(eggName)
-   local egg = game.Workspace.Eggs:FindFirstChild(eggName)
-   if egg then
-      local player = game.Players.LocalPlayer
-      local character = player.Character or player.CharacterAdded:Wait()
-      local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-
-      if humanoidRootPart then
-         local tweenService = game:GetService("TweenService")
-         local tweenInfo = TweenInfo.new(1.5, Enum.EasingStyle.Linear)
-         local goal = { CFrame = egg.CFrame + Vector3.new(0, 3, 0) } -- Moves slightly above the egg
-
-         local tween = tweenService:Create(humanoidRootPart, tweenInfo, goal)
-         tween:Play()
-         tween.Completed:Wait()
+local eggStoragePos = Vector3.new(253, -30, 47)
+local eggSpacing = 10
+local basePlate = nil
+local function MoveEggsToStorage()
+   local workspaceEggs = game.Workspace:FindFirstChild("Eggs")
+   if not workspaceEggs then return end
+   
+   local position = eggStoragePos
+   local maxWidth = 0
+   
+   for _, egg in ipairs(workspaceEggs:GetChildren()) do
+      if egg:IsA("Model") then
+         egg:SetPrimaryPartCFrame(CFrame.new(position))
+         position = position + Vector3.new(eggSpacing, 0, 0)
+         maxWidth = maxWidth + eggSpacing
       end
+   end
+   
+   if not basePlate then
+      basePlate = Instance.new("Part")
+      basePlate.Name = "eggareasomethingoranother"
+      basePlate.Size = Vector3.new(maxWidth + 10, 2, 20)
+      basePlate.Position = eggStoragePos - Vector3.new(0, 2, 0)
+      basePlate.Anchored = true
+      basePlate.Parent = game.Workspace
    else
-      Rayfield:Notify({
-         Title = "Egg Not Found",
-         Content = "Could not find the egg in Workspace. Try selecting another.",
-         Duration = 5,
-         Image = 4483362458
-      })
+      basePlate.Size = Vector3.new(maxWidth + 10, 2, 20)
    end
 end
+
+EggsTab:CreateButton({
+   Name = "Move All Eggs Here",
+   Callback = function()
+      MoveEggsToStorage()
+   end
+})
+
+EggsTab:CreateButton({
+   Name = "Teleport to Egg Zone",
+   Callback = function()
+      local player = game.Players.LocalPlayer
+      if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+         player.Character.HumanoidRootPart.CFrame = CFrame.new(eggStoragePos + Vector3.new(0, 3, 0))
+      end
+   end
+})
 
 EggsTab:CreateDropdown({
    Name = "Select Egg",
