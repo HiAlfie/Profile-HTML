@@ -185,79 +185,18 @@ EggsTab:CreateParagraph({
 
 local selectedEgg = nil
 local selectedAmount = nil
-local eggStoragePos = Vector3.new(253, -30, 47)
-local eggSpacing = 10
-local basePlate = nil
-
-local function MoveEggsToStorage()
-   local workspaceEggs = game.Workspace:FindFirstChild("Eggs")
-   if not workspaceEggs then return end
-
-   local position = eggStoragePos
-   local maxWidth = 0
-   local movedEggs = 0
-
-   for _, egg in ipairs(workspaceEggs:GetChildren()) do
-      if egg:IsA("Model") then
-         if not egg.PrimaryPart then
-            -- Try setting a PrimaryPart if it's missing
-            local firstPart = egg:FindFirstChildWhichIsA("BasePart")
-            if firstPart then
-               egg.PrimaryPart = firstPart
-            else
-               continue -- Skip this egg if it has no valid parts
-            end
-         end
-         
-         egg:SetPrimaryPartCFrame(CFrame.new(position))
-         position = position + Vector3.new(eggSpacing, 0, 0)
-         maxWidth = maxWidth + eggSpacing
-         movedEggs = movedEggs + 1
-      end
-   end
-
-   -- Create or resize base plate
-   if movedEggs > 0 then
-      if not basePlate then
-         basePlate = Instance.new("Part")
-         basePlate.Name = "EggStorageBase"
-         basePlate.Anchored = true
-         basePlate.Parent = game.Workspace
-      end
-
-      basePlate.Size = Vector3.new(maxWidth + 10, 2, 20)
-      basePlate.Position = eggStoragePos - Vector3.new(0, 2, 0)
-   end
-end
-
-EggsTab:CreateButton({
-   Name = "Move All Eggs Here",
-   Callback = function()
-      MoveEggsToStorage()
-   end
-})
-
-
-EggsTab:CreateButton({
-   Name = "Teleport to Egg Zone",
-   Callback = function()
-      local player = game.Players.LocalPlayer
-      if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-         player.Character.HumanoidRootPart.CFrame = CFrame.new(eggStoragePos + Vector3.new(0, 3, 0))
-      end
-   end
-})
+local autoEggRun = false
 
 EggsTab:CreateDropdown({
    Name = "Select Egg",
    Options = {
-      "Blossom Egg", "Golden Egg", -- Event Eggs
-      "Basic Egg", "Rare Egg", "Wood Egg", "Sand Egg", -- World 1
-      "Snow Egg", "Lava Egg", "Aqua Egg", "Sakura Egg", -- World 2
-      "Cave Egg", "Galaxy Egg", -- World 3
-      "Beach Egg", "Sunny Egg", -- World 4
-      "Angelic Egg", -- World 5
-      "Cyber Egg" -- World 6
+      "Blossom Egg", "Golden Egg",
+      "Basic Egg", "Rare Egg", "Wood Egg", "Sand Egg",
+      "Snow Egg", "Lava Egg", "Aqua Egg", "Sakura Egg",
+      "Cave Egg", "Galaxy Egg",
+      "Beach Egg", "Sunny Egg",
+      "Angelic Egg",
+      "Cyber Egg"
    },
    CurrentOption = {"Basic Egg"},
    Callback = function(Options)
@@ -274,10 +213,16 @@ EggsTab:CreateDropdown({
    end
 })
 
-EggsTab:CreateParagraph({
-   Title = "Disclaimer",
-   Content = "Freely, you can open 1 & 3, gamepass is required for further."
-})
+local function teleportToEgg()
+   if not selectedEgg then return end
+   local workspaceEggs = game.Workspace:FindFirstChild("Eggs")
+   if workspaceEggs then
+      local eggModel = workspaceEggs:FindFirstChild(selectedEgg)
+      if eggModel and eggModel:IsA("Model") and eggModel.PrimaryPart then
+         game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(eggModel.PrimaryPart.CFrame + Vector3.new(0, 5, 0))
+      end
+   end
+end
 
 EggsTab:CreateToggle({
    Name = "Auto Open Eggs",
@@ -295,7 +240,7 @@ EggsTab:CreateToggle({
          return
       end
 
-      TweenToEgg(selectedEgg) -- this takes u to egg without teleporting
+      teleportToEgg() -- Teleport before starting auto hatch
 
       while autoEggRun do
          game:GetService("ReplicatedStorage").Remotes["Buy Egg"]:InvokeServer(selectedEgg, selectedAmount)
@@ -304,6 +249,7 @@ EggsTab:CreateToggle({
       end
    end
 })
+
 
 task.wait(0.5)
 Rayfield:LoadConfiguration()
