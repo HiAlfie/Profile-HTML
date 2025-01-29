@@ -31,30 +31,71 @@ if game.PlaceId == 111130915266245 then
    })
 
    local numberValue = 0
-   local rebirthMapping = {
-      ["1"] = 1, ["5"] = 2, ["20"] = 3, ["50"] = 4, ["100"] = 5,
-      ["400"] = 6, ["1K"] = 7, ["5K"] = 8, ["25K"] = 9, ["75K"] = 10,
-      ["200K"] = 11, ["500K"] = 12, ["2M"] = 13, ["25M"] = 14,
-      ["100M"] = 15, ["1B"] = 16, ["50B"] = 17, ["500B"] = 18, ["50T"] = 19
-   }
 
    local FarmTab = Window:CreateTab("Auto Farm", 4483362458)
 
+   -- Dropdown for selecting rebirth index
    FarmTab:CreateDropdown({
       Name = "Rebirth Option",
       Options = { "1", "5", "20", "50", "100", "400", "1K", "5K", "25K", "75K", "200K", "500K", "2M", "25M", "100M", "1B", "50B", "500B", "50T" },
-      CurrentOption = "1",
-      Callback = function(rebirthValue)
-         numberValue = rebirthMapping[rebirthValue] or 0
+      CurrentOption = {"1"},
+      Callback = function(Options)
+         -- Unpack the selected option (Options is a table, so get the first option)
+         local selectedOption = Options[1]
+
+         -- Set numberValue based on the selected option
+         if selectedOption == "1" then
+            numberValue = 1
+         elseif selectedOption == "5" then
+            numberValue = 2
+         elseif selectedOption == "20" then
+            numberValue = 3
+         elseif selectedOption == "50" then
+            numberValue = 4
+         elseif selectedOption == "100" then
+            numberValue = 5
+         elseif selectedOption == "400" then
+            numberValue = 6
+         elseif selectedOption == "1K" then
+            numberValue = 7
+         elseif selectedOption == "5K" then
+            numberValue = 8
+         elseif selectedOption == "25K" then
+            numberValue = 9
+         elseif selectedOption == "75K" then
+            numberValue = 10
+         elseif selectedOption == "200K" then
+            numberValue = 11
+         elseif selectedOption == "500K" then
+            numberValue = 12
+         elseif selectedOption == "2M" then
+            numberValue = 13
+         elseif selectedOption == "25M" then
+            numberValue = 14
+         elseif selectedOption == "100M" then
+            numberValue = 15
+         elseif selectedOption == "1B" then
+            numberValue = 16
+         elseif selectedOption == "50B" then
+            numberValue = 17
+         elseif selectedOption == "500B" then
+            numberValue = 18
+         elseif selectedOption == "50T" then
+            numberValue = 19
+         else
+            numberValue = 0
+         end
+
          Rayfield:Notify({
             Title = "Rebirth Option Updated",
-            Content = "Selected rebirth index: " .. rebirthValue,
+            Content = "Selected rebirth index: " .. tostring(selectedOption),
             Duration = 3,
             Image = 4483362458
          })
       end
    })
 
+   -- Toggle for auto rebirth
    FarmTab:CreateToggle({
       Name = "Auto Rebirth",
       CurrentValue = false,
