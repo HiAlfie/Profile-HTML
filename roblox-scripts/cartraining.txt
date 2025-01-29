@@ -33,15 +33,12 @@ if game.PlaceId == 111130915266245 then
    local running = false
    local numberValue = 0
 
-   -- Home Tab (Credits + Discord Link)
    local HomeTab = Window:CreateTab("Home", 4483362458)
 
-   -- Add credits to the Home Tab
    HomeTab:CreateLabel("Credits:")
+   HomeTab:CreateLabel("@idk ur username - Owner")
    HomeTab:CreateLabel("@dznv - Main Developer")
-   HomeTab:CreateLabel("@juiceworld - Second Developer")
 
-   -- Create Copy to Clipboard button for Discord invite
    HomeTab:CreateButton({
       Name = "Copy Discord Link",
       Callback = function()
@@ -55,7 +52,6 @@ if game.PlaceId == 111130915266245 then
       end
    })
 
-   -- Create Auto Farm Tab
    local FarmTab = Window:CreateTab("Auto Farm", 4483362458)
 
    FarmTab:CreateToggle({
