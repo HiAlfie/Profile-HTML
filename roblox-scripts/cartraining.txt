@@ -54,27 +54,24 @@ if game.PlaceId == 111130915266245 then
 
    local FarmTab = Window:CreateTab("Auto Farm", 4483362458)
 
-   FarmTab:CreateToggle({
-      Name = "Auto Race",
-      CurrentValue = false,
-      Flag = "AutoRaceToggle",
-      Callback = function(Value)
-				local running = false
-				if running == false then
-						running = true
+	 FarmTab:CreateToggle({
+	   Name = "Auto Race",
+	   CurrentValue = false,
+     Flag = "AutoRaceToggle",
+     Callback = function(Value)
+        if Value then
             game:GetService("ReplicatedStorage").Remotes["Join Race"]:FireServer()
             wait(1)
             game:GetService("ReplicatedStorage").Remotes["Set Stat"]:FireServer("Auto Race", true)
-         else
-						running = false
+        else
             game:GetService("ReplicatedStorage").Remotes["Set Stat"]:FireServer("Auto Race", false)
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Leave Race"):FireServer()
             wait(1)
             game:GetService("ReplicatedStorage").Remotes["TP"]:InvokeServer(1)
-         end
-      end,
-   })
-   
+        end
+     end,
+	 })
+
    FarmTab:CreateDropdown({
       Name = "Rebirth Option",
       Options = { "1", "5", "20", "50", "100", "400", "1K", "5K", "25K", "75K", "200K", "500K", "2M", "25M", "100M", "1B", "50B", "500B", "50T" },
