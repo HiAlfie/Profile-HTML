@@ -188,30 +188,45 @@ local selectedAmount = nil
 local eggStoragePos = Vector3.new(253, -30, 47)
 local eggSpacing = 10
 local basePlate = nil
+
 local function MoveEggsToStorage()
    local workspaceEggs = game.Workspace:FindFirstChild("Eggs")
    if not workspaceEggs then return end
-   
+
    local position = eggStoragePos
    local maxWidth = 0
-   
+   local movedEggs = 0
+
    for _, egg in ipairs(workspaceEggs:GetChildren()) do
       if egg:IsA("Model") then
+         if not egg.PrimaryPart then
+            -- Try setting a PrimaryPart if it's missing
+            local firstPart = egg:FindFirstChildWhichIsA("BasePart")
+            if firstPart then
+               egg.PrimaryPart = firstPart
+            else
+               continue -- Skip this egg if it has no valid parts
+            end
+         end
+         
          egg:SetPrimaryPartCFrame(CFrame.new(position))
          position = position + Vector3.new(eggSpacing, 0, 0)
          maxWidth = maxWidth + eggSpacing
+         movedEggs = movedEggs + 1
       end
    end
-   
-   if not basePlate then
-      basePlate = Instance.new("Part")
-      basePlate.Name = "eggareasomethingoranother"
+
+   -- Create or resize base plate
+   if movedEggs > 0 then
+      if not basePlate then
+         basePlate = Instance.new("Part")
+         basePlate.Name = "EggStorageBase"
+         basePlate.Anchored = true
+         basePlate.Parent = game.Workspace
+      end
+
       basePlate.Size = Vector3.new(maxWidth + 10, 2, 20)
       basePlate.Position = eggStoragePos - Vector3.new(0, 2, 0)
-      basePlate.Anchored = true
-      basePlate.Parent = game.Workspace
-   else
-      basePlate.Size = Vector3.new(maxWidth + 10, 2, 20)
    end
 end
 
@@ -221,6 +236,7 @@ EggsTab:CreateButton({
       MoveEggsToStorage()
    end
 })
+
 
 EggsTab:CreateButton({
    Name = "Teleport to Egg Zone",
