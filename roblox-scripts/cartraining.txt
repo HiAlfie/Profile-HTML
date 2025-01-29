@@ -169,73 +169,108 @@ if game.PlaceId == 111130915266245 then
       end
    })
    
-	--- this is like the auto egg tab okay for cartrainigng
-   local EggsTab = Window:CreateTab("Eggs", 4483362458)
-   local selectedEgg = nil
-   local selectedAmount = nil
-   local autoEggRun = false
+--- This is the Auto Egg tab for Car Training
+local EggsTab = Window:CreateTab("Eggs", 4483362458)
 
-   EggsTab:CreateParagraph({
-      Title = "Egg Categories",
-      Content = "Blossom Egg & Golden Egg → Event Eggs\n" ..
-               "Basic, Rare, Wood, Sand → World 1\n" ..
-               "Snow, Lava, Aqua, Sakura → World 2\n" ..
-               "Cave, Galaxy → World 3\n" ..
-               "Beach, Sunny → World 4\n" ..
-               "Angelic → World 5\n" ..
-               "Cyber → World 6"
-   })
+-- Description of Egg Categories
+EggsTab:CreateParagraph({
+   Title = "Egg Categories",
+   Content = "Blossom Egg & Golden Egg → Event Eggs\n" ..
+            "Basic, Rare, Wood, Sand → World 1\n" ..
+            "Snow, Lava, Aqua, Sakura → World 2\n" ..
+            "Cave, Galaxy → World 3\n" ..
+            "Beach, Sunny → World 4\n" ..
+            "Angelic → World 5\n" ..
+            "Cyber → World 6"
+})
 
-   EggsTab:CreateDropdown({
-      Name = "Select Egg",
-      Options = {
-	 "Blossom Egg", "Golden Egg",
-         "Basic Egg", "Rare Egg", "Wood Egg", "Sand Egg",
-         "Snow Egg", "Lava Egg", "Aqua Egg", "Sakura Egg",
-         "Cave Egg", "Galaxy Egg",
-         "Beach Egg", "Sunny Egg",
-         "Angelic Egg",
-         "Cyber Egg"
-      },
-      CurrentOption = {"Basic Egg"},
-      Callback = function(Options)
-      	selectedEgg = Options[1]
+local selectedEgg = nil
+local selectedAmount = nil
+local autoEggRun = false
+local function TweenToEgg(eggName)
+   local egg = game.Workspace.Eggs:FindFirstChild(eggName)
+   if egg then
+      local player = game.Players.LocalPlayer
+      local character = player.Character or player.CharacterAdded:Wait()
+      local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+
+      if humanoidRootPart then
+         local tweenService = game:GetService("TweenService")
+         local tweenInfo = TweenInfo.new(1.5, Enum.EasingStyle.Linear)
+         local goal = { CFrame = egg.CFrame + Vector3.new(0, 3, 0) } -- Moves slightly above the egg
+
+         local tween = tweenService:Create(humanoidRootPart, tweenInfo, goal)
+         tween:Play()
+         tween.Completed:Wait()
       end
-   })
+   else
+      Rayfield:Notify({
+         Title = "Egg Not Found",
+         Content = "Could not find the egg in Workspace. Try selecting another.",
+         Duration = 5,
+         Image = 4483362458
+      })
+   end
+end
 
-   EggsTab:CreateDropdown({
-      Name = "Egg Amount",
-      Options = { "1", "3", "6", "12" },
-      CurrentOption = {"1"},
-      Callback = function(Options)
-         selectedAmount = tonumber(Options[1])
+EggsTab:CreateDropdown({
+   Name = "Select Egg",
+   Options = {
+      "Blossom Egg", "Golden Egg", -- Event Eggs
+      "Basic Egg", "Rare Egg", "Wood Egg", "Sand Egg", -- World 1
+      "Snow Egg", "Lava Egg", "Aqua Egg", "Sakura Egg", -- World 2
+      "Cave Egg", "Galaxy Egg", -- World 3
+      "Beach Egg", "Sunny Egg", -- World 4
+      "Angelic Egg", -- World 5
+      "Cyber Egg" -- World 6
+   },
+   CurrentOption = {"Basic Egg"},
+   Callback = function(Options)
+      selectedEgg = Options[1]
+   end
+})
+
+EggsTab:CreateDropdown({
+   Name = "Egg Amount",
+   Options = { "1", "3", "6", "12" },
+   CurrentOption = {"1"},
+   Callback = function(Options)
+      selectedAmount = tonumber(Options[1])
+   end
+})
+
+EggsTab:CreateParagraph({
+   Title = "Disclaimer",
+   Content = "Freely, you can open 1 & 3, gamepass is required for further."
+})
+
+EggsTab:CreateToggle({
+   Name = "Auto Open Eggs",
+   CurrentValue = false,
+   Flag = "AutoOpenEggs",
+   Callback = function(isEnabled)
+      autoEggRun = isEnabled
+      if not selectedEgg or not selectedAmount then
+         Rayfield:Notify({
+            Title = "Error",
+            Content = "Please select both an egg and amount before enabling Auto Open Eggs.",
+            Duration = 5,
+            Image = 4483362458
+         })
+         return
       end
-   })
 
-   EggsTab:CreateToggle({
-      Name = "Auto Open Eggs",
-      CurrentValue = false,
-      Flag = "AutoOpenEggs",
-      Callback = function(isEnabled)
-         autoEggRun = isEnabled
-         if not selectedEgg or not selectedAmount then
-            Rayfield:Notify({
-               Title = "Error",
-               Content = "Please select both an egg and amount before enabling Auto Open Eggs.",
-               Duration = 5,
-               Image = 4483362458
-            })
-            return
-         end
+      TweenToEgg(selectedEgg) -- this takes u to egg without teleporting
 
-         while autoEggRun do
-            game:GetService("ReplicatedStorage").Remotes["Buy Egg"]:InvokeServer(selectedEgg, selectedAmount)
-            task.wait(0.1)
-            if not Rayfield.Flags["AutoOpenEggs"].CurrentValue then break end
-         end
+      while autoEggRun do
+         game:GetService("ReplicatedStorage").Remotes["Buy Egg"]:InvokeServer(selectedEgg, selectedAmount)
+         task.wait(0.1)
+         if not Rayfield.Flags["AutoOpenEggs"].CurrentValue then break end
       end
-   })
+   end
+})
 
-   task.wait(0.5)
-   Rayfield:LoadConfiguration()
+task.wait(0.5)
+Rayfield:LoadConfiguration()
+
 end
