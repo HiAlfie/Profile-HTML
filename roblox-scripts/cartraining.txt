@@ -40,7 +40,7 @@ if game.PlaceId == 111130915266245 then
    HomeTab:CreateLabel("@dznv - Main Developer")
 
    HomeTab:CreateButton({
-      Name = "Copy Discord Link",
+      Name = "Join the Discord!",
       Callback = function()
          setclipboard("https://discord.gg/ffJj5ap6rx")
          Rayfield:Notify({
@@ -59,15 +59,11 @@ if game.PlaceId == 111130915266245 then
       CurrentValue = false,
       Flag = "AutoRaceToggle",
       Callback = function(Value)
-         running = Value
-         if running then
-            while running do
-               game:GetService("ReplicatedStorage").Remotes["Join Race"]:FireServer()
-               wait(1)
-               game:GetService("ReplicatedStorage").Remotes["Set Stat"]:FireServer("Auto Race", true)
-               wait(1)
-               if not running then break end
-            end
+				local running = false
+				if running == false then
+            game:GetService("ReplicatedStorage").Remotes["Join Race"]:FireServer()
+            wait(1)
+            game:GetService("ReplicatedStorage").Remotes["Set Stat"]:FireServer("Auto Race", true)
          else
             game:GetService("ReplicatedStorage").Remotes["Set Stat"]:FireServer("Auto Race", false)
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Leave Race"):FireServer()
