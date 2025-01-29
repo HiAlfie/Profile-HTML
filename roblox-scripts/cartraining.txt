@@ -229,7 +229,6 @@ EggsTab:CreateToggle({
    CurrentValue = false,
    Flag = "AutoOpenEggs",
    Callback = function(isEnabled)
-      autoEggRun = isEnabled
       if not selectedEgg or not selectedAmount then
          if isEnabled then
             Rayfield:Notify({
@@ -242,9 +241,11 @@ EggsTab:CreateToggle({
          end
       end
 
-      teleportToEgg() -- Teleport before starting auto hatch
+      if isEnabled then
+         teleportToEgg() -- Teleport before starting auto hatch
+      end
 
-      while autoEggRun do
+      while isEnabled do
          game:GetService("ReplicatedStorage").Remotes["Buy Egg"]:InvokeServer(selectedEgg, selectedAmount)
          task.wait(0.1)
          if not Rayfield.Flags["AutoOpenEggs"].CurrentValue then break end
