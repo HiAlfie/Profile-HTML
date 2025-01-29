@@ -30,23 +30,40 @@ if game.PlaceId == 111130915266245 then
       }
    })
 
+   local running = false
+
    local numberValue = 0
 
    local FarmTab = Window:CreateTab("Auto Farm", 4483362458)
 
-   FarmTab:CreateToggle({Name="Auto Race",CurrentValue=false,Flag="AutoRaceToggle",Callback=function(f)c=f;if c then while c do game:GetService("ReplicatedStorage").Remotes["Join Race"]:FireServer()wait(1)game:GetService("ReplicatedStorage").Remotes["Set Stat"]:FireServer("Auto Race",true)wait(1)if not c then break end end else game:GetService("ReplicatedStorage").Remotes["Set Stat"]:FireServer("Auto Race",false)game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Leave Race"):FireServer()wait(1)game:GetService("ReplicatedStorage").Remotes["TP"]:InvokeServer(1)end end})
-
+   FarmTab:CreateToggle({
+      Name = "Auto Race",
+      CurrentValue = false,
+      Flag = "AutoRaceToggle",
+      Callback = function(Value)
+         running = Value
+         if running then
+            while running do
+               game:GetService("ReplicatedStorage").Remotes["Join Race"]:FireServer()
+               wait(1)
+               game:GetService("ReplicatedStorage").Remotes["Set Stat"]:FireServer("Auto Race", true)
+               wait(1)
+               if not running then break end
+            end
+         else
+            game:GetService("ReplicatedStorage").Remotes["Set Stat"]:FireServer("Auto Race", false)
+            wait(1)
+            game:GetService("ReplicatedStorage").Remotes["TP"]:InvokeServer(1)
+         end
+      end,
+   })
    
-   -- Dropdown for selecting rebirth index
    FarmTab:CreateDropdown({
       Name = "Rebirth Option",
       Options = { "1", "5", "20", "50", "100", "400", "1K", "5K", "25K", "75K", "200K", "500K", "2M", "25M", "100M", "1B", "50B", "500B", "50T" },
       CurrentOption = {"1"},
       Callback = function(Options)
-         -- Unpack the selected option (Options is a table, so get the first option)
          local selectedOption = Options[1]
-
-         -- Set numberValue based on the selected option
          if selectedOption == "1" then
             numberValue = 1
          elseif selectedOption == "5" then
@@ -98,7 +115,6 @@ if game.PlaceId == 111130915266245 then
       end
    })
 
-   -- Toggle for auto rebirth
    FarmTab:CreateToggle({
       Name = "Auto Rebirth",
       CurrentValue = false,
@@ -132,7 +148,6 @@ if game.PlaceId == 111130915266245 then
 
             task.wait(1)
 
-            -- Break the loop if the toggle is disabled
             if not Rayfield.Flags["AutoRebirthToggle"].CurrentValue then break end
          end
       end
