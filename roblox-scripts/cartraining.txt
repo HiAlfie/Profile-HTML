@@ -30,8 +30,7 @@ if game.PlaceId == 111130915266245 then
       }
    })
 
-   local isRunning = false
-   local rebirthIndex = nil
+   local numberValue = 0
 
    local FarmTab = Window:CreateTab("Auto Farm", 4483362458)
 
@@ -40,21 +39,32 @@ if game.PlaceId == 111130915266245 then
       Name = "Rebirth Option",
       Options = { "1", "5", "20", "50", "100", "400", "1K", "5K", "25K", "75K", "200K", "500K", "2M", "25M", "100M", "1B", "50B", "500B", "50T" },
       CurrentOption = "1",
-      Callback = function(selectedOption)
-         -- Index-based mapping for rebirth values
-         local rebirthMapping = {
-            ["1"] = 1, ["5"] = 2, ["20"] = 3, ["50"] = 4,
-            ["100"] = 5, ["400"] = 6, ["1K"] = 7, ["5K"] = 8,
-            ["25K"] = 9, ["75K"] = 10, ["200K"] = 11,
-            ["500K"] = 12, ["2M"] = 13, ["25M"] = 14,
-            ["100M"] = 15, ["1B"] = 16, ["50B"] = 17,
-            ["500B"] = 18, ["50T"] = 19
-         }
-         rebirthIndex = rebirthMapping[selectedOption]
+      Callback = function(rebirthValue)
+         if rebirthValue == "1" then numberValue = 1
+         elseif rebirthValue == "5" then numberValue = 2
+         elseif rebirthValue == "20" then numberValue = 3
+         elseif rebirthValue == "50" then numberValue = 4
+         elseif rebirthValue == "100" then numberValue = 5
+         elseif rebirthValue == "400" then numberValue = 6
+         elseif rebirthValue == "1K" then numberValue = 7
+         elseif rebirthValue == "5K" then numberValue = 8
+         elseif rebirthValue == "25K" then numberValue = 9
+         elseif rebirthValue == "75K" then numberValue = 10
+         elseif rebirthValue == "200K" then numberValue = 11
+         elseif rebirthValue == "500K" then numberValue = 12
+         elseif rebirthValue == "2M" then numberValue = 13
+         elseif rebirthValue == "25M" then numberValue = 14
+         elseif rebirthValue == "100M" then numberValue = 15
+         elseif rebirthValue == "1B" then numberValue = 16
+         elseif rebirthValue == "50B" then numberValue = 17
+         elseif rebirthValue == "500B" then numberValue = 18
+         elseif rebirthValue == "50T" then numberValue = 19
+         else numberValue = 0
+         end
 
          Rayfield:Notify({
             Title = "Rebirth Option Updated",
-            Content = "Selected rebirth index: " .. tostring(rebirthIndex),
+            Content = "Selected rebirth index: " .. tostring(rebirthValue),
             Duration = 3,
             Image = 4483362458
          })
@@ -67,12 +77,12 @@ if game.PlaceId == 111130915266245 then
       CurrentValue = false,
       Flag = "AutoRebirthToggle",
       Callback = function(isEnabled)
-         while isEnabled and rebirthIndex do
-            local args = { rebirthIndex }
+         while isEnabled and numberValue do
+            local args = { numberValue }
 
             Rayfield:Notify({
                Title = "Rebirth Attempt",
-               Content = "Attempting rebirth with index: " .. tostring(rebirthIndex),
+               Content = "Attempting rebirth with index: " .. tostring(numberValue),
                Duration = 3,
                Image = 4483362458
             })
@@ -84,7 +94,7 @@ if game.PlaceId == 111130915266245 then
             if success then
                Rayfield:Notify({
                   Title = "Rebirth Successful",
-                  Content = "Rebirthed successfully with index: " .. tostring(rebirthIndex),
+                  Content = "Rebirthed successfully with index: " .. tostring(numberValue),
                   Duration = 3,
                   Image = 4483362458
                })
@@ -103,7 +113,7 @@ if game.PlaceId == 111130915266245 then
             if not Rayfield.Flags["AutoRebirthToggle"].CurrentValue then break end
          end
 
-         if not rebirthIndex then
+         if not numberValue then
             Rayfield:Notify({
                Title = "Rebirth Error",
                Content = "Please select a rebirth option before enabling Auto Rebirth.",
