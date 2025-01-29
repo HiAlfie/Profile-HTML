@@ -34,6 +34,9 @@ if game.PlaceId == 111130915266245 then
 
    local FarmTab = Window:CreateTab("Auto Farm", 4483362458)
 
+   FarmTab:CreateToggle({Name="Auto Race",CurrentValue=false,Flag="AutoRaceToggle",Callback=function(f)c=f;if c then while c do game:GetService("ReplicatedStorage").Remotes["Join Race"]:FireServer()wait(1)game:GetService("ReplicatedStorage").Remotes["Set Stat"]:FireServer("Auto Race",true)wait(1)if not c then break end end else game:GetService("ReplicatedStorage").Remotes["Set Stat"]:FireServer("Auto Race",false)game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Leave Race"):FireServer()wait(1)game:GetService("ReplicatedStorage").Remotes["TP"]:InvokeServer(1)end end})
+
+   
    -- Dropdown for selecting rebirth index
    FarmTab:CreateDropdown({
       Name = "Rebirth Option",
@@ -112,24 +115,12 @@ if game.PlaceId == 111130915266245 then
          end
 
          while isEnabled do
-            Rayfield:Notify({
-               Title = "Rebirth Attempt",
-               Content = "Attempting rebirth with index: " .. tostring(numberValue),
-               Duration = 3,
-               Image = 4483362458
-            })
-
             local success, result = pcall(function()
                return game:GetService("ReplicatedStorage").Remotes["Rebirth"]:InvokeServer(numberValue)
             end)
 
             if success then
-               Rayfield:Notify({
-                  Title = "Rebirth Successful",
-                  Content = "Rebirthed successfully with index: " .. tostring(numberValue),
-                  Duration = 3,
-                  Image = 4483362458
-               })
+               task.wait()
             else
                Rayfield:Notify({
                   Title = "Rebirth Failed",
