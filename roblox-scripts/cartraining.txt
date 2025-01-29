@@ -9,7 +9,7 @@ if game.PlaceId == 111130915266245 then
       DisableRayfieldPrompts = false,
       DisableBuildWarnings = false,
       ConfigurationSaving = {
-         Enabled = true,
+         Enabled = false,
          FolderName = "Car Training Folder (script)",
          FileName = "Symbiote (script)"
       },
@@ -218,8 +218,8 @@ local function teleportToEgg()
    local workspaceEggs = game.Workspace:FindFirstChild("Eggs")
    if workspaceEggs then
       local eggModel = workspaceEggs:FindFirstChild(selectedEgg)
-      if eggModel and eggModel:IsA("Model") and eggModel.PrimaryPart then
-         game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(eggModel.PrimaryPart.CFrame + Vector3.new(0, 5, 0))
+      if eggModel and eggModel:IsA("Model") and eggModel.EggModel.UIPart then
+         game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(eggModel.EggModel.UIPart.CFrame + Vector3.new(0, 5, 0))
       end
    end
 end
@@ -231,13 +231,15 @@ EggsTab:CreateToggle({
    Callback = function(isEnabled)
       autoEggRun = isEnabled
       if not selectedEgg or not selectedAmount then
-         Rayfield:Notify({
-            Title = "Error",
-            Content = "Please select both an egg and amount before enabling Auto Open Eggs.",
-            Duration = 5,
-            Image = 4483362458
-         })
-         return
+         if isEnabled then
+            Rayfield:Notify({
+               Title = "Error",
+               Content = "Please select both an egg and amount before enabling Auto Open Eggs.",
+               Duration = 5,
+               Image = 4483362458
+            })
+            return
+         end
       end
 
       teleportToEgg() -- Teleport before starting auto hatch
