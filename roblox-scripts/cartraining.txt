@@ -66,6 +66,7 @@ if game.PlaceId == 111130915266245 then
             wait(1)
             game:GetService("ReplicatedStorage").Remotes["Set Stat"]:FireServer("Auto Race", true)
          else
+						running = false
             game:GetService("ReplicatedStorage").Remotes["Set Stat"]:FireServer("Auto Race", false)
             game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Leave Race"):FireServer()
             wait(1)
