@@ -31,20 +31,30 @@ if game.PlaceId == 111130915266245 then
    })
 
    local isRunning = false
-   local rebirthValue = nil
+   local rebirthIndex = nil
 
    local FarmTab = Window:CreateTab("Auto Farm", 4483362458)
 
-   -- Dropdown for selecting rebirth option
+   -- Dropdown for selecting rebirth index
    FarmTab:CreateDropdown({
       Name = "Rebirth Option",
       Options = { "1", "5", "20", "50", "100", "400", "1K", "5K", "25K", "75K", "200K", "500K", "2M", "25M", "100M", "1B", "50B", "500B", "50T" },
       CurrentOption = "1",
       Callback = function(selectedOption)
-         rebirthValue = tonumber(selectedOption) -- Assign selected rebirth value
+         -- Index-based mapping for rebirth values
+         local rebirthMapping = {
+            ["1"] = 1, ["5"] = 2, ["20"] = 3, ["50"] = 4,
+            ["100"] = 5, ["400"] = 6, ["1K"] = 7, ["5K"] = 8,
+            ["25K"] = 9, ["75K"] = 10, ["200K"] = 11,
+            ["500K"] = 12, ["2M"] = 13, ["25M"] = 14,
+            ["100M"] = 15, ["1B"] = 16, ["50B"] = 17,
+            ["500B"] = 18, ["50T"] = 19
+         }
+         rebirthIndex = rebirthMapping[selectedOption]
+
          Rayfield:Notify({
             Title = "Rebirth Option Updated",
-            Content = "Selected rebirth value: " .. tostring(rebirthValue),
+            Content = "Selected rebirth index: " .. tostring(rebirthIndex),
             Duration = 3,
             Image = 4483362458
          })
@@ -57,12 +67,12 @@ if game.PlaceId == 111130915266245 then
       CurrentValue = false,
       Flag = "AutoRebirthToggle",
       Callback = function(isEnabled)
-         while isEnabled and rebirthValue do
-            local args = { rebirthValue }
+         while isEnabled and rebirthIndex do
+            local args = { rebirthIndex }
 
             Rayfield:Notify({
                Title = "Rebirth Attempt",
-               Content = "Attempting to rebirth with value: " .. tostring(rebirthValue),
+               Content = "Attempting rebirth with index: " .. tostring(rebirthIndex),
                Duration = 3,
                Image = 4483362458
             })
@@ -74,7 +84,7 @@ if game.PlaceId == 111130915266245 then
             if success then
                Rayfield:Notify({
                   Title = "Rebirth Successful",
-                  Content = "Rebirthed successfully!",
+                  Content = "Rebirthed successfully with index: " .. tostring(rebirthIndex),
                   Duration = 3,
                   Image = 4483362458
                })
@@ -93,7 +103,7 @@ if game.PlaceId == 111130915266245 then
             if not Rayfield.Flags["AutoRebirthToggle"].CurrentValue then break end
          end
 
-         if not rebirthValue then
+         if not rebirthIndex then
             Rayfield:Notify({
                Title = "Rebirth Error",
                Content = "Please select a rebirth option before enabling Auto Rebirth.",
